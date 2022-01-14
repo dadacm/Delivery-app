@@ -13,8 +13,14 @@ const calculateTotalPrice = (products) => {
   return totalPrice;
 };
 
-function CheckoutProducts({ cart, removeItem, page }) {
+function CheckoutProducts({ cart, removeItem, page, saleTotalPrice = 0 }) {
   const [totalPrice, setTotalPrice] = useState(0);
+
+  let role = 'customer';
+
+  if (/seller/.test(window.location.href)) {
+    role = 'seller';
+  }
 
   useEffect(() => {
     setTotalPrice(calculateTotalPrice(cart));
@@ -41,35 +47,35 @@ function CheckoutProducts({ cart, removeItem, page }) {
                 <tr key={ index }>
                   <td
                     data-testid={
-                      `customer_${page}__element-order-table-item-number-${index}`
+                      `${role}_${page}__element-order-table-item-number-${index}`
                     }
                   >
                     {index + 1}
                   </td>
                   <td
                     data-testid={
-                      `customer_${page}__element-order-table-name-${index}`
+                      `${role}_${page}__element-order-table-name-${index}`
                     }
                   >
                     {name}
                   </td>
                   <td
                     data-testid={
-                      `customer_${page}__element-order-table-quantity-${index}`
+                      `${role}_${page}__element-order-table-quantity-${index}`
                     }
                   >
                     {quantity}
                   </td>
                   <td
                     data-testid={
-                      `customer_${page}__element-order-table-unit-price-${index}`
+                      `${role}_${page}__element-order-table-unit-price-${index}`
                     }
                   >
                     {formatPrice(Number(price))}
                   </td>
                   <td
                     data-testid={
-                      `customer_${page}__element-order-table-sub-total-${index}`
+                      `${role}_${page}__element-order-table-sub-total-${index}`
                     }
                   >
                     {formatPrice(Number(price) * Number(quantity))}
@@ -77,7 +83,7 @@ function CheckoutProducts({ cart, removeItem, page }) {
                   {page === 'checkout' ? (
                     <td
                       data-testid={
-                        `customer_${page}__element-order-table-remove-${index}`
+                        `${role}_${page}__element-order-table-remove-${index}`
                       }
                     >
                       <button
@@ -98,7 +104,7 @@ function CheckoutProducts({ cart, removeItem, page }) {
         page === 'checkout'
           ? (
             <p
-              data-testid={ `customer_${page}__element-order-total-price` }
+              data-testid={ `${role}_${page}__element-order-total-price` }
             >
               Total: R$
               {formatPrice(totalPrice)}
@@ -107,9 +113,9 @@ function CheckoutProducts({ cart, removeItem, page }) {
             <p>
               Total: R$
               <span
-                data-testid={ `customer_${page}__element-order-total-price` }
+                data-testid={ `${role}_${page}__element-order-total-price` }
               >
-                {formatPrice(totalPrice)}
+                {formatPrice(saleTotalPrice)}
               </span>
             </p>
           )
@@ -124,8 +130,10 @@ CheckoutProducts.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeItem: PropTypes.func,
   page: PropTypes.string.isRequired,
+  saleTotalPrice: PropTypes.number,
 };
 
 CheckoutProducts.defaultProps = {
   removeItem: () => {},
+  saleTotalPrice: 0,
 };

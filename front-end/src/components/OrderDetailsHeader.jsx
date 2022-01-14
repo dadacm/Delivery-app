@@ -1,7 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function OrderDetailsHeader({ order }) {
+import { putApiWithToken } from '../helper/api';
+
+const handleDeliveredButton = async (id, setUpdate) => {
+  try {
+    await putApiWithToken(`/seller/orders/${id}`, {
+      status: 'Entregue',
+    });
+    setUpdate(true);
+  } catch (err) {
+    setError(err.message);
+  }
+};
+
+function OrderDetailsHeader({ order, setShouldUpdate }) {
   const { id, seller, saleDate, status } = order;
 
   return (
@@ -29,7 +42,8 @@ function OrderDetailsHeader({ order }) {
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
-        disabled={ status !== 'Em trânsito' }
+        disabled={ status !== 'Em Trânsito' }
+        onClick={ () => handleDeliveredButton(id, setShouldUpdate) }
       >
         MARCAR COMO ENTREGUE
       </button>
@@ -41,4 +55,5 @@ export default OrderDetailsHeader;
 
 OrderDetailsHeader.propTypes = {
   order: PropTypes.arrayOf(PropTypes.object),
+  setShouldUpdate: PropTypes.func,
 }.isRequired;

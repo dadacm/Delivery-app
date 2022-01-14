@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getApi } from '../helper/api';
+import { getApiWithToken } from '../helper/api';
 
 import Header from '../components/Header';
-import OrderDetailsHeader from '../components/OrderDetailsHeader';
+import SellerOrderDetailsHeader from '../components/SellerOrderDetailsHeader';
 import CheckoutProducts from '../components/CheckoutProducts';
 
 const adjustProductsObject = ({ products }) => (
@@ -17,18 +17,24 @@ const adjustProductsObject = ({ products }) => (
   })
 );
 
-function OrderDetails() {
+function SellerOrderDetails() {
   const { orderId } = useParams();
 
   const [order, setOrder] = useState({ loading: true, products: [] });
+  const [products, setProducts] = useState([]);
+
   const [shouldUpdate, setShouldUpdate] = useState(true);
 
   useEffect(() => {
     if (shouldUpdate) {
-      getApi(`/customer/orders/${orderId}`, setOrder);
+      getApiWithToken(`/customer/orders/${orderId}`, setOrder);
       setShouldUpdate(false);
     }
-  }, [orderId, shouldUpdate]);
+  }, [shouldUpdate, orderId]);
+
+  useEffect(() => {
+    setProducts(adjustProductsObject(order));
+  }, [order]);
 
   if (order.loading) {
     return (
@@ -40,12 +46,12 @@ function OrderDetails() {
     <div>
       <Header />
       <h1>Detalhe do Pedido</h1>
-      <OrderDetailsHeader
+      <SellerOrderDetailsHeader
         order={ order }
         setShouldUpdate={ setShouldUpdate }
       />
       <CheckoutProducts
-        cart={ adjustProductsObject(order) }
+        cart={ products }
         page="order_details"
         saleTotalPrice={ Number(order.totalPrice) }
       />
@@ -53,4 +59,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default SellerOrderDetails;

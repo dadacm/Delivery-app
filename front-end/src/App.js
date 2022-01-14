@@ -9,20 +9,32 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
+import SellerOrders from './pages/SellerOrders';
 import OrderDetails from './pages/OrderDetails';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 
 function App() {
   return (
     <Provider store={ store }>
       <BrowserRouter>
         <Routes>
+          {/* Redirects */}
           <Route path="/" element={ <Navigate to="/login" /> } />
+          <Route path="/admin" element={ <Navigate to="/admin/manage" /> } />
+          <Route path="/customer" element={ <Navigate to="/customer/products" /> } />
+          <Route path="/seller" element={ <Navigate to="/seller/orders" /> } />
+
+          {/* Initial pages */}
           <Route path="/login" element={ <Login /> } />
           <Route path="/register" element={ <Register /> } />
+
+          {/* App pages */}
           <Route path="/customer/products" element={ <Products /> } />
           <Route path="/customer/checkout" element={ <Checkout /> } />
           <Route path="/customer/orders" element={ <Orders /> } />
+          <Route path="/seller/orders" element={ <SellerOrders /> } />
           <Route path="/customer/orders/:orderId" element={ <OrderDetails /> } />
+          <Route path="/seller/orders/:orderId" element={ <SellerOrderDetails /> } />
         </Routes>
       </BrowserRouter>
     </Provider>

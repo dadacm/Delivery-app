@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function HeaderUsers() {
+function Header() {
   const redirect = useNavigate();
 
   const localStorageUser = localStorage.getItem('user');
-  const { name } = JSON.parse(localStorageUser);
+  const { name, role } = JSON.parse(localStorageUser);
 
   const userCheckout = () => {
     localStorage.removeItem('user');
@@ -38,17 +38,27 @@ function HeaderUsers() {
           >
             <Nav.Link
               data-testid="customer_products__element-navbar-link-orders"
-              onClick={ () => redirect('/customer/orders') }
+              onClick={ () => redirect(`/${role}/orders`) }
             >
-              MEUS PEDIDOS
+              {
+                role === 'customer'
+                  ? 'MEUS PEDIDOS'
+                  : 'PEDIDOS'
+              }
             </Nav.Link>
-            <Nav.Link
-              data-testid="customer_products__element-navbar-link-products"
-              onClick={ () => redirect('/customer/products') }
-            >
-              PRODUTOS
+            {
+              role === 'customer'
+                ? (
+                  <Nav.Link
+                    data-testid="customer_products__element-navbar-link-products"
+                    onClick={ () => redirect('/customer/products') }
+                  >
+                    PRODUTOS
 
-            </Nav.Link>
+                  </Nav.Link>
+                )
+                : null
+            }
             <Nav.Link
               href="#pricing"
               data-testid="customer_products__element-navbar-link-logout"
@@ -64,4 +74,4 @@ function HeaderUsers() {
   );
 }
 
-export default HeaderUsers;
+export default Header;

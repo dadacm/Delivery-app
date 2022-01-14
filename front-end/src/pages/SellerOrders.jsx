@@ -7,7 +7,7 @@ function Orders() {
   const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    getApiWithToken('/customer/orders', setSales);
+    getApiWithToken('/seller/orders', setSales);
   }, []);
 
   return (
