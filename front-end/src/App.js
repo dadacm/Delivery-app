@@ -11,6 +11,7 @@ import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
 import SellerOrders from './pages/SellerOrders';
 import OrderDetails from './pages/OrderDetails';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/customer/orders" element={ <Orders /> } />
           <Route path="/seller/orders" element={ <SellerOrders /> } />
           <Route path="/customer/orders/:orderId" element={ <OrderDetails /> } />
+          <Route path="/seller/orders/:orderId" element={ <SellerOrderDetails /> } />
         </Routes>
       </BrowserRouter>
     </Provider>

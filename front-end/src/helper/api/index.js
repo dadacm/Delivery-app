@@ -45,3 +45,15 @@ export const postApiWithToken = async (route, body) => {
 
   return response.data;
 };
+
+export const putApiWithToken = async (route, body) => {
+  const token = getToken();
+
+  const response = await api.put(
+    route,
+    body,
+    { headers: { Authorization: token } },
+  );
+
+  return response.data;
+};
