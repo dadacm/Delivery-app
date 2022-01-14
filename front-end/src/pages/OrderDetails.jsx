@@ -21,15 +21,10 @@ function OrderDetails() {
   const { orderId } = useParams();
 
   const [order, setOrder] = useState({ loading: true, products: [] });
-  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     getApi(`/customer/orders/${orderId}`, setOrder);
   }, [orderId]);
-
-  useEffect(() => {
-    setProducts(adjustProductsObject(order));
-  }, [order]);
 
   if (order.loading) {
     return (
@@ -42,7 +37,11 @@ function OrderDetails() {
       <Header />
       <h1>Detalhe do Pedido</h1>
       <OrderDetailsHeader order={ order } />
-      <CheckoutProducts cart={ products } page="order_details" />
+      <CheckoutProducts
+        cart={ adjustProductsObject(order) }
+        page="order_details"
+        saleTotalPrice={ Number(order.totalPrice) }
+      />
     </div>
   );
 }

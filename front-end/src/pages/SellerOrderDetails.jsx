@@ -50,7 +50,11 @@ function SellerOrderDetails() {
         order={ order }
         setShouldUpdate={ setShouldUpdate }
       />
-      <CheckoutProducts cart={ products } page="order_details" />
+      <CheckoutProducts
+        cart={ products }
+        page="order_details"
+        saleTotalPrice={ Number(order.totalPrice) }
+      />
     </div>
   );
 }

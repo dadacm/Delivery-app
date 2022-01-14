@@ -13,7 +13,7 @@ const calculateTotalPrice = (products) => {
   return totalPrice;
 };
 
-function CheckoutProducts({ cart, removeItem, page }) {
+function CheckoutProducts({ cart, removeItem, page, saleTotalPrice = 0 }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   let role = 'customer';
@@ -115,7 +115,7 @@ function CheckoutProducts({ cart, removeItem, page }) {
               <span
                 data-testid={ `${role}_${page}__element-order-total-price` }
               >
-                {formatPrice(totalPrice)}
+                {formatPrice(saleTotalPrice)}
               </span>
             </p>
           )
@@ -130,8 +130,10 @@ CheckoutProducts.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeItem: PropTypes.func,
   page: PropTypes.string.isRequired,
+  saleTotalPrice: PropTypes.number,
 };
 
 CheckoutProducts.defaultProps = {
   removeItem: () => {},
+  saleTotalPrice: 0,
 };
