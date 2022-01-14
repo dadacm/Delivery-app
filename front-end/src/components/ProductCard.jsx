@@ -10,9 +10,16 @@ import {
 } from '../redux/actions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CardButtons from './CardButtons';
 
 import formatPrice from '../helper/formatPrice';
+
+const inputStyle = {
+  width: '80%',
+};
+
+const buttonStyle = {
+  margin: '0 7px',
+};
 
 function ProductCard({ product, cart, addToCart, removeFromCart, updateQuantity }) {
   const { id, name, price, urlImage } = product;
@@ -81,11 +88,30 @@ function ProductCard({ product, cart, addToCart, removeFromCart, updateQuantity 
           </span>
         </ListGroupItem>
         <ListGroupItem style={ { display: 'flex' } }>
-          <CardButtons
-            id={ id }
-            quantity={ quantity }
-            handleQuantityButton={ handleQuantityButton }
+          <button
+            style={ buttonStyle }
+            type="button"
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            onClick={ () => handleQuantityButton(quantity - 1) }
+          >
+            -
+          </button>
+          <input
+            style={ inputStyle }
+            type="number"
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            value={ quantity }
+            min="0"
+            onChange={ (e) => handleQuantityButton(e.target.value) }
           />
+          <button
+            style={ buttonStyle }
+            type="button"
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            onClick={ () => handleQuantityButton(quantity + 1) }
+          >
+            +
+          </button>
         </ListGroupItem>
       </ListGroup>
     </Card>

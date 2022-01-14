@@ -13,9 +13,7 @@ const redirectAlreadyLogged = (redirect) => {
 
   const user = JSON.parse(userStorage);
 
-  return user.role === 'customer'
-    ? redirect('/customer/products')
-    : redirect('/seller/orders');
+  redirect(`/${user.role}`);
 };
 
 function Login() {

@@ -18,9 +18,17 @@ function App() {
     <Provider store={ store }>
       <BrowserRouter>
         <Routes>
+          {/* Redirects */}
           <Route path="/" element={ <Navigate to="/login" /> } />
+          <Route path="/admin" element={ <Navigate to="/admin/manage" /> } />
+          <Route path="/customer" element={ <Navigate to="/customer/products" /> } />
+          <Route path="/seller" element={ <Navigate to="/seller/orders" /> } />
+
+          {/* Initial pages */}
           <Route path="/login" element={ <Login /> } />
           <Route path="/register" element={ <Register /> } />
+
+          {/* App pages */}
           <Route path="/customer/products" element={ <Products /> } />
           <Route path="/customer/checkout" element={ <Checkout /> } />
           <Route path="/customer/orders" element={ <Orders /> } />

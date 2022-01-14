@@ -38,7 +38,7 @@ function Header() {
           >
             <Nav.Link
               data-testid="customer_products__element-navbar-link-orders"
-              onClick={ () => redirect('/customer/orders') }
+              onClick={ () => redirect(`/${role}/orders`) }
             >
               {
                 role === 'customer'
