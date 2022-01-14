@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { getApi } from '../helper/api';
 
-import HeaderUsers from '../components/HeaderUsers';
+import Header from '../components/Header';
 import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import CheckoutProducts from '../components/CheckoutProducts';
 
@@ -39,7 +39,7 @@ function OrderDetails() {
 
   return (
     <div>
-      <HeaderUsers />
+      <Header />
       <h1>Detalhe do Pedido</h1>
       <OrderDetailsHeader order={ order } />
       <CheckoutProducts cart={ products } page="order_details" />

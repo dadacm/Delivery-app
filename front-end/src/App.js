@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
+import SellerOrders from './pages/SellerOrders';
 import OrderDetails from './pages/OrderDetails';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/customer/products" element={ <Products /> } />
           <Route path="/customer/checkout" element={ <Checkout /> } />
           <Route path="/customer/orders" element={ <Orders /> } />
+          <Route path="/seller/orders" element={ <SellerOrders /> } />
           <Route path="/customer/orders/:orderId" element={ <OrderDetails /> } />
         </Routes>
       </BrowserRouter>

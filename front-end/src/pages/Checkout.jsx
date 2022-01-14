@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import HeaderUsers from '../components/HeaderUsers';
+import HeaderUsers from '../components/Header';
 import CheckoutProducts from '../components/CheckoutProducts';
 import { removeProductAction, resetCartAction } from '../redux/actions';
 import CheckoutForm from '../components/CheckoutForm';
